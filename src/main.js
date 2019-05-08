@@ -1,15 +1,30 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import App from './App.vue'
-
+import Axios from 'axios'
 
 
 import { Header } from 'mint-ui';
 import 'mint-ui/lib/style.css'
 import '../static/mui/css/mui.css'
+import '../static/mui/css/icons-extra.css'
+import { Swipe, SwipeItem } from 'mint-ui';
+
+Vue.component(Swipe.name, Swipe);
+Vue.component(SwipeItem.name, SwipeItem);
+
+Vue.use(VueRouter)
 Vue.component(Header.name, Header);
+
+Vue.prototype.$http = Axios
+
+
+import router from './router.js'
+
 
 const vm = new Vue({
     el:"#app",
+    router,
     render:c=>c(App)
 })
 
