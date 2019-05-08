@@ -5,7 +5,7 @@
 
 
 		<!-- 内容 view 区域 -->
-        <h1>我是首页hahahaha</h1>
+        <h1>我是首页hasadsadasdaa</h1>
        
 
 		<!-- 底部 foot 区域 -->
