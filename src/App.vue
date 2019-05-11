@@ -1,11 +1,13 @@
 <template>
     <div class="app-container">
 		<!-- 顶部 Header 区域 -->
-        <mt-header fixed title="固定在顶部"></mt-header>
+        <mt-header fixed title="黑马CMS"></mt-header>
 
 
 		<!-- 内容 view 区域 -->
-		<router-view></router-view>
+		<transition>
+			<router-view></router-view>
+		</transition>
        
 
 		<!-- 底部 foot 区域 -->
@@ -39,8 +41,25 @@
 </script>
 
 <style lang="scss" scoped>
-   .app-container{ 
-	    padding-top: 40px;
+.app-container {
+  padding-top: 40px;
   overflow-x: hidden;
-    }
+	padding-bottom:40px
+}
+
+.v-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+  position: absolute;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
+}
 </style>

@@ -9,8 +9,9 @@ function resolve (dir) {
 }
 
 
-
-module.exports = {
+const vuxLoader = require('vux-loader')
+// module.exports =  { 原本要暴露出去的代码 }
+const webpackConfig = {
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -80,3 +81,8 @@ module.exports = {
     child_process: 'empty'
   }
 }
+ // 原来的 module.exports 代码赋值给变量 webpackConfig
+
+module.exports = vuxLoader.merge(webpackConfig, {
+  plugins: ['vux-ui']
+})

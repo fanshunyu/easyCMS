@@ -9,14 +9,34 @@ import 'mint-ui/lib/style.css'
 import '../static/mui/css/mui.css'
 import '../static/mui/css/icons-extra.css'
 import { Swipe, SwipeItem } from 'mint-ui';
+import { Button } from 'mint-ui';
+import Moment from 'moment'
+import { Lazyload } from 'mint-ui';
+Vue.use(Lazyload);
 
 Vue.component(Swipe.name, Swipe);
+Vue.component(Button.name, Button);
 Vue.component(SwipeItem.name, SwipeItem);
-
-Vue.use(VueRouter)
 Vue.component(Header.name, Header);
 
+
+import VuePreview from 'vue-preview'
+
+Vue.use(VuePreview) // 这种用法是默认的安装方式
+
+
+
+
+Vue.use(VueRouter)
+
+
+Axios.defaults.baseURL = 'http://www.liulongbin.top:3005';
+
 Vue.prototype.$http = Axios
+
+Vue.filter("dateFormat",function(msg){
+    return Moment(msg).format("YYYY-MM-DD HH:mm:ss")
+})
 
 
 import router from './router.js'
