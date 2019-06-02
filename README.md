@@ -1,17 +1,12 @@
-`# 这是一个NB的项目
+# 这个项目是用的vue-cli 2.x 搭的 :full_moon_with_face: 
 
-## 牛不牛逼， 用心去感受，每一行代码中的诗情雅意
+## UI 框架是 mint UI :flushed: 跟 mui :shit: 以及 vux :+1:
 
-### 我们是有灵魂程序员，所以，我们的代码富有诗意；
+## 利用vuex :sparkles:做的状态管理 本来也可以不用 直接用 provide/inject的 不过用了就用了呗
 
-#### 丫的，实在编不下去了,哈哈哈
+为啥要用这么多呢 因为我闲的蛋疼 
 
-## [主流开源协议之间有何异同？](https://www.zhihu.com/question/19568896)
-
-## 用(传统方式)命令行把修改过后的代码上传到码云？？？
-1. git add .
-2. git commit -m "提交信息"
-3. git push
+### 另外忠告一句 mui 慎用 坑多 :sob::sob::sob::sob::sob::sob::sob::sob:
 
 ## 制作首页App组件
 1. 完成 Header 区域，使用的是 Mint-UI 中的Header组件
@@ -105,7 +100,18 @@
 7. 需要自己去添加浮动 来使标签在一行上显示
 
 
+###  因为使用到了mui所以要记录一些奇葩的bug
 
-## 记录一个bug 当引入 mui.js的时候 会导致 tabbar不能切换
-## 我们在后面的功能中 会用到mui的一个js组件 叫numberbox 
-## 解决这个bug的方案就是重写css样式
+1. 当引入mui.js的时候 会导致tabbar 不能切换
+
+   ​	解决办法: 重新tabbar的样式 把mui的样式复制到一个新的类名上
+
+2. 最后执行打包命令的时候会因为 mui.css 文件中 svg 文件引入的 引号问题 到是build 失败
+
+   ​	修改mui.css的源码 ctrl + f 查找 svg 在两处引用中把 单引号修改为双引号
+
+### 购物车功能
+
+使用vuex 做为状态管理
+
+啊！文档懒得写了 就这样吧 

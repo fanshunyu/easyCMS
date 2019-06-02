@@ -1,65 +1,71 @@
 <template>
   <div class="goods-list">
-    
-    <div class="goods-item">
-      <img src="http://ofv795nmp.bkt.clouddn.com//upload/201504/20/thumb_201504200119256512.jpg" alt="">
-      <h1 class="title">小米（Mi）小米Note 16G双网通版</h1>
+
+    <div class="goods-item" v-for="item in goodslist" :key="item.id" @click="goDetail(item.id)">
+      <img :src="item.img_url" alt="">
+      <h1 class="title">{{ item.title }}</h1>
       <div class="info">
         <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
+          <span class="now">￥{{ item.sell_price }}</span>
+          <span class="old">￥{{ item.market_price }}</span>
         </p>
         <p class="sell">
           <span>热卖中</span>
-          <span>剩60件</span>
+          <span>剩{{ item.stock_quantity }}件</span>
         </p>
       </div>
     </div>
 
-    <div class="goods-item">
-      <img src="http://ofv795nmp.bkt.clouddn.com//upload/201504/20/thumb_201504200214471783.jpg" alt="">
-      <h1 class="title">尼康(Nikon)D3300套机（18-55mm f/3.5-5.6G VRII）（黑色）</h1>
-      <div class="info">
-        <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
-        </p>
-        <p class="sell">
-          <span>热卖中</span>
-          <span>剩60件</span>
-        </p>
-      </div>
-    </div>
 
-    <div class="goods-item">
-      <img src="http://ofv795nmp.bkt.clouddn.com//upload/201504/20/thumb_201504200119256512.jpg" alt="">
-      <h1 class="title">小米（Mi）小米Note 16G双网通版</h1>
-      <div class="info">
-        <p class="price">
-          <span class="now">￥899</span>
-          <span class="old">￥999</span>
-        </p>
-        <p class="sell">
-          <span>热卖中</span>
-          <span>剩60件</span>
-        </p>
-      </div>
-    </div>
-
+    <mt-button type="danger" size="large" @click="getMore">加载更多</mt-button>
   </div>
 </template>
 
 <script>
+export default {
+  data() {
+    // data 是往自己组件内部，挂载一些私有数据的
+    return {
+      pageindex: 1, // 分页的页数
+      goodslist: [] // 存放商品列表的数组
+    };
+  },
+  created() {
+    this.getGoodsList();
+  },
+  methods: {
+    getGoodsList() {
+      // 获取商品列表
+      this.$http
+        .get("api/getgoods?pageindex=" + this.pageindex)
+        .then(result => {
+          if (result.data.status === 0) {
+            this.goodslist = this.goodslist.concat(result.data.message);
+          }
+        });
+    },
+    getMore() {
+      this.pageindex++;
+      this.getGoodsList();
+    },
+    goDetail(id) {
+
+      console.log(this);
+
+      this.$router.push({ name: "goodsinfo", params: { id } });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-.goods-list{
+.goods-list {
   display: flex;
   flex-wrap: wrap;
   padding: 7px;
   justify-content: space-between;
 
-  .goods-item{
+  .goods-item {
     width: 49%;
     border: 1px solid #ccc;
     box-shadow: 0 0 8px #ccc;
@@ -69,32 +75,32 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 293px;
-    img{
+    img {
       width: 100%;
     }
-    .title{
+    .title {
       font-size: 14px;
     }
 
-    .info{
+    .info {
       background-color: #eee;
-      p{
+      p {
         margin: 0;
         padding: 5px;
       }
-      .price{
-        .now{
+      .price {
+        .now {
           color: red;
           font-weight: bold;
           font-size: 16px;
         }
-        .old{
+        .old {
           text-decoration: line-through;
           font-size: 12px;
           margin-left: 10px;
         }
       }
-      .sell{
+      .sell {
         display: flex;
         justify-content: space-between;
         font-size: 13px;
